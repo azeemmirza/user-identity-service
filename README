@@ -1,0 +1,5 @@
+User Identity Service
+
+This is a backend service for managing user identities, sessions, and devices in modern web applications. It provides secure session lifecycle management, device awareness, session revocation, and auditability, designed to reflect how authentication and security systems work in real production environments.
+
+The service is built as a standalone identity component that can be integrated into SaaS platforms, internal tools, or microservice architectures.
