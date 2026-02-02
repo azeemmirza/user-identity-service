@@ -1,0 +1,19 @@
+[project]
+name = "user-identity-service"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "alembic>=1.18.3",
+    "fastapi[standard]>=0.128.0",
+    "sqlalchemy>=2.0.46",
+]
+
+[dependency-groups]
+dev = [
+    "black>=26.1.0",
+    "mypy>=1.19.1",
+    "pytest>=9.0.2",
+    "ruff>=0.14.14",
+]
