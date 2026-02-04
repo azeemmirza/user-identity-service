@@ -11,8 +11,11 @@ if not (
         or config.DATABASE_USERNAME):
     raise RuntimeError('MUST provide DATABASE_URL or DATABASE_NAME or DATABASE_PASSWORD or DATABASE_USERNAME')
 
+# STRING FORMAT: postgresql+asyncpg://user:pass@localhost:5432/db
+database_connection_str = f'postgresql+asyncpg://{config.DATABASE_USERNAME}:{config.DATABASE_PASSWORD}@{config.DATABASE_URL}/{config.DATABASE_NAME}'
+
 database_engine = create_async_engine(
-    config.DATABASE_URL,
+    database_connection_str,
     pool_pre_ping=True,
     echo=True,
 )
