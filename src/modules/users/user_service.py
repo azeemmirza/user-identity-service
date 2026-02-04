@@ -1,12 +1,31 @@
-from sqlalchemy.testing.pickleable import User
+from fastapi import HTTPException, status
+from typing import Optional
 
 
 class UserService:
-    async def get_user(self) -> User:
-        return NotImplemented()
+    '''Service class encapsulating user operations.
 
-    async def update_user(self, user: User) -> User:
-        return NotImplemented()
+    Current implementations are placeholders that raise HTTP 501 Not Implemented.
+    Each method accepts an optional `db` argument for future database access.
+    '''
 
-    async def delete_user(self, user_id: str) -> User:
-        return NotImplemented()
+    async def get_user(self, db: Optional[object] = None):
+        # Retrieve a user (not implemented).
+        raise HTTPException(
+            status_code=status.HTTP_501_NOT_IMPLEMENTED,
+            detail="method Not implemented",
+        )
+
+    async def update_user(self, db: Optional[object] = None):
+        # Update a user (not implemented).'''
+        raise HTTPException(
+            status_code=status.HTTP_501_NOT_IMPLEMENTED,
+            detail="method Not implemented",
+        )
+
+    async def delete_user(self, db: Optional[object] = None):
+        # Delete a user (not implemented).'''
+        raise HTTPException(
+            status_code=status.HTTP_501_NOT_IMPLEMENTED,
+            detail="method Not implemented",
+        )

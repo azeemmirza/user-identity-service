@@ -1,18 +1,21 @@
 from fastapi import APIRouter
-from fastapi_cloud_cli.commands import login
+
+from src.core.database.session import get_async_session
+from src.modules.users.user_service import UserService
 
 router = APIRouter()
+service = UserService()
 
 @router.get('/')
 async def get_user():
-    return NotImplementedError()
+    return await service.get_user()
 
 
 @router.put('/')
 async def update_user():
-    return NotImplementedError()
+    return await service.update_user()
 
 
 @router.delete('/')
 async def delete_user():
-    return NotImplementedError()
+    return await service.delete_user()
