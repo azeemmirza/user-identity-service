@@ -1,0 +1,42 @@
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  rich:
+    # Only payload. Rich prints time/level in columns.
+    format: "%(name)s - %(message)s"
+
+handlers:
+  console:
+    class: rich.logging.RichHandler
+    level: INFO
+    formatter: rich
+    rich_tracebacks: true
+    markup: true
+
+    # Let Rich render the columns
+    show_time: true
+    show_level: true
+    show_path: true
+
+    # Make time look like your desired format.
+    # RichHandler uses `log_time_format` for its time column.
+    log_time_format: "[%Y-%m-%d %H:%M:%S]"
+
+root:
+  level: INFO
+  handlers: [console]
+
+loggers:
+  uvicorn:
+    level: INFO
+    propagate: true
+  uvicorn.error:
+    level: INFO
+    propagate: true
+  uvicorn.access:
+    level: INFO
+    propagate: true
+  user_identity_service:
+    level: INFO
+    propagate: true
