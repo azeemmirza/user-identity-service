@@ -1,7 +1,17 @@
 -- MILESTONE 01 --
-[ ] project structure
+[x] project structure
 [ ] infrastructure
+    [x] database
+    [x] migrations
 [ ] dockerization
+[x] testing environment
+[x] scriptures
+[x] logging env
+
 
 -- MILESTONE 02 --
+[ ] middlewares
+    [ ] jwt
+    [ ] multipart
+
 [ ] api development

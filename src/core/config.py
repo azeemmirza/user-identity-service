@@ -14,6 +14,11 @@ class Config(BaseSettings):
 
     JWT_SECRET: str = None
     JWT_ALGORITHM: str = 'HS256'
+    ACCESS_TOKEN_MINUTES: int = 15
+    REFRESH_TOKEN_DAYS: int = 7
+    REMEMBER_ME_REFRESH_DAYS: int = 30
+
+    LOG_LEVEL: str = 'INFO'
 
     model_config = SettingsConfigDict(
         env_file='.env',
