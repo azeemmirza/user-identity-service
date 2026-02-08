@@ -8,7 +8,6 @@ from src.shared.errors import TokenError
 
 _config = get_config()
 
-
 def encode_token(payload: dict, expires_delta: int | None = None) -> str:
     """Encode a JWT with optional expiration in minutes."""
     iat = dt.datetime.now(dt.timezone.utc)

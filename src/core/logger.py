@@ -1,6 +1,7 @@
 import logging
 from typing import Final
 
+
 # Usage:
 #     from src.core.logger import logger
 #     logger.debug('debug message')
