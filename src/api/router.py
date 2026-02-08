@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from src.modules.health.routes import router as health_router
 from src.modules.users.routes import router as user_router
 
+
 api_router = APIRouter()
 
 api_router.include_router(health_router, tags=['health'])

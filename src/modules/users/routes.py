@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
-from src.core.database.session import get_async_session
 from src.modules.users.user_service import UserService
+
 
 router = APIRouter()
 service = UserService()
