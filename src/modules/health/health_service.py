@@ -1,6 +1,7 @@
 from src.core.config import get_config
 from src.modules.health.dtos import HealthResponse
 
+
 config = get_config()
 
 class HealthService:

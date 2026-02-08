@@ -7,6 +7,7 @@ router = APIRouter()
 config = get_config()
 service = HealthService()
 
+
 # health check endpoint
 @router.get(
     "/health",
