@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from sqlalchemy import ForeignKey, String, Boolean
-from sqlalchemy.dialects.postgresql import INET
+from sqlalchemy import ForeignKey, String, Boolean, DateTime
+from sqlalchemy.dialects.postgresql import INET, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from src.core.database.base import Base
@@ -11,7 +11,8 @@ from src.core.database.mixins import TimeMixin, UUIDMixin
 class Session(Base, TimeMixin, UUIDMixin):
     __tablename__ = 'sessions'
 
-    user_id: Mapped[str] = mapped_column(
+    user_id: Mapped[UUID] = mapped_column(
+        UUID(as_uuid=True),
         ForeignKey('users.id', ondelete='CASCADE'),
         nullable=False,
         index=True,
