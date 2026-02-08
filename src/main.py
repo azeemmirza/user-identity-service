@@ -7,7 +7,6 @@ from src.core.logger import logger
 
 config = get_config()
 
-
 async def initialize_app():
     pass
 

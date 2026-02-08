@@ -1,4 +1,4 @@
-.PHONY: dev test lint fmt typecheck migrate makemigration
+.PHONY: dev test lint fmt typecheck migrate makemigration venv-activate venv-deactivate
 
 dev:
 	uv run uvicorn src.main:app --reload --log-config logging.yaml
