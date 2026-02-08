@@ -5,11 +5,11 @@ from src.api.router import api_router
 from src.core.config import get_config
 from src.core.logger import logger
 
+
 config = get_config()
 
 async def initialize_app():
     pass
-
 
 @asynccontextmanager
 async def lifespan(app_instance: FastAPI):
