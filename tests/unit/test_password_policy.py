@@ -2,6 +2,7 @@ import pytest
 
 from src.shared.utils import verify_password_policy
 
+
 unittest = pytest.mark.unit
 unit_parameterize = pytest.mark.parametrize
 

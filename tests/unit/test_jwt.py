@@ -8,7 +8,6 @@ from src.shared.errors import TokenError
 
 unit = pytest.mark.unit
 
-
 @unit
 def test_encode_and_decode_token_round_trip() -> None:
     payload = {"sub": "user-123", "role": "admin"}
