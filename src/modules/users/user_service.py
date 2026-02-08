@@ -13,19 +13,21 @@ class UserService:
         # Retrieve a user (not implemented).
         raise HTTPException(
             status_code=status.HTTP_501_NOT_IMPLEMENTED,
-            detail="method Not implemented",
+            detail="method not implemented",
         )
+
 
     async def update_user(self, db: Optional[object] = None):
         # Update a user (not implemented).'''
         raise HTTPException(
             status_code=status.HTTP_501_NOT_IMPLEMENTED,
-            detail="method Not implemented",
+            detail="method not implemented",
         )
+
 
     async def delete_user(self, db: Optional[object] = None):
         # Delete a user (not implemented).'''
         raise HTTPException(
             status_code=status.HTTP_501_NOT_IMPLEMENTED,
-            detail="method Not implemented",
+            detail="method not implemented",
         )
