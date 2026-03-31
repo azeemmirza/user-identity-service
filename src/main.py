@@ -3,13 +3,17 @@ from fastapi import FastAPI
 
 from src.api.router import api_router
 from src.core.config import get_config
+from src.core.database.models import Base
+from src.core.database.session import database_engine
 from src.core.logger import logger
 
 
 config = get_config()
 
 async def initialize_app():
-    pass
+    async with database_engine.begin() as connection:
+        await connection.run_sync(Base.metadata.create_all)
+
 
 @asynccontextmanager
 async def lifespan(app_instance: FastAPI):
@@ -44,4 +48,3 @@ def bootstrap() -> FastAPI:
 
 
 app = bootstrap()
-

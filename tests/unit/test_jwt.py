@@ -1,12 +1,9 @@
 import time
-
 import pytest
 
-from src.core.jwt import encode_token, decode_token
+from src.core.security.jwt import encode_token, decode_token
 from src.shared.errors import TokenError
-
-
-unit = pytest.mark.unit
+from tests.conftest import unit
 
 @unit
 def test_encode_and_decode_token_round_trip() -> None:

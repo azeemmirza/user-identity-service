@@ -1,11 +1,8 @@
-import pytest
 from fastapi import FastAPI
 
 from src.main import bootstrap
 from src.core.config import get_config
-
-
-integration = pytest.mark.integration
+from tests.conftest import integration
 
 @integration
 def test_app_is_created_successfully() -> None:
