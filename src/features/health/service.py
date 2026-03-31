@@ -1,5 +1,5 @@
 from src.core.config import get_config
-from src.modules.health.dtos import HealthResponse
+from src.features.health.schemas import HealthResponse
 
 
 config = get_config()
@@ -12,4 +12,3 @@ class HealthService:
             version=config.VERSION,
             env=config.ENV,
         )
-
