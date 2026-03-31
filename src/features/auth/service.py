@@ -21,7 +21,7 @@ from src.features.auth.schemas import (
     SessionResponse,
     TokenBundle,
     UserResponse,
-    LoginRequest
+    LoginRequest, RegisterResponse
 )
 from src.features.sessions.repository import SessionRefreshTokenRepository, SessionRepository
 from src.features.sessions.models.session import Session
@@ -81,9 +81,9 @@ class AuthService:
             device_name=body.device_name,
         )
 
-    async def register(self, body: RegisterRequest, request: Request) -> AuthResponse:
+    async def register(self, body: RegisterRequest, request: Request) -> RegisterResponse:
         '''
-        register a new user, ensuring email uniqueness and password policy compliance, then create session
+        register a new user, ensuring email uniqueness and password policy compliance, then create a session
 
         :param db: database session for querying and creating user and session records
         :param body: registration request body containing email, password, confirm_password, first_name, last_name, remember_me, and device_name
@@ -116,7 +116,7 @@ class AuthService:
         else:
             username = await self._generate_username(normalized_email)
 
-        # create user record with hashed password and active status
+        # create a user record with a hashed password and active status
         user = User(
             username=username,
             email=normalized_email,
@@ -128,20 +128,31 @@ class AuthService:
         self.users.create(user)
         await self.repository.flush()
 
-        # if the request has session then create session else only return the user info without session and tokens
+        user_response = self._serialize_user(user)
+
+        # if the request has session then create session else only return the user info without a session and tokens
         if not body.session:
-            return AuthResponse(
-                user=self._serialize_user(user),
+            await self.repository.commit()
+            return RegisterResponse(
+                user=user_response,
                 session=None,
                 tokens=None,
             )
 
-
-        return await self._create_auth_response(
+        # create session and tokens for the new user
+        auth_response = await self._create_auth_response(
             user=user,
             request=request,
-            remember_me=body.remember_me,
+            remember_me=False,
+            device_name=None,
         )
+
+        return RegisterResponse(
+            user=user_response,
+            session=auth_response.session,
+            tokens=auth_response.tokens,
+        )
+
 
 
     async def refresh_token(self, refresh_token: str, request: Request) -> AuthResponse:
@@ -312,7 +323,7 @@ class AuthService:
                 user_id=user.id,
                 user_agent=request.headers.get("user-agent"),
                 ip_address=self._get_request_ip(request),
-                device_name=device_name,
+                device_name=self._get_device_name(request, device_name),
                 remember_me=remember_me,
                 last_seen_at=self._utcnow_naive(),
             )
@@ -498,6 +509,29 @@ class AuthService:
     def _refresh_expiry_minutes(self, remember_me: bool) -> int:
         days = config.REMEMBER_ME_REFRESH_DAYS if remember_me else config.REFRESH_TOKEN_DAYS
         return days * 24 * 60
+
+    def _get_device_name(self, request: Request, provided_name: str | None) -> str | None:
+        if provided_name is not None:
+            normalized_name = provided_name.strip()
+            if normalized_name:
+                return normalized_name
+
+        user_agent = request.headers.get("user-agent", "").lower()
+
+        if "iphone" in user_agent:
+            return "iPhone"
+        if "ipad" in user_agent:
+            return "iPad"
+        if "android" in user_agent:
+            return "Android Device"
+        if "mac os x" in user_agent or "macintosh" in user_agent:
+            return "Mac"
+        if "windows" in user_agent:
+            return "Windows PC"
+        if "linux" in user_agent:
+            return "Linux Device"
+
+        return "Unknown Device"
 
     def _get_request_ip(self, request: Request) -> str | None:
         if request.client is None:

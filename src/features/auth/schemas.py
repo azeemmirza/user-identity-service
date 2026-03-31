@@ -1,7 +1,7 @@
 from datetime import datetime
 import uuid
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 class LoginRequest(BaseModel):
     email: str
@@ -73,6 +73,8 @@ class MessageResponse(BaseModel):
 
 # register request response
 class RegisterRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     first_name: str
     last_name: str
     email: str
